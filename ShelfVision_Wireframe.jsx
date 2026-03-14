@@ -135,7 +135,7 @@ function ShelfVisionWireframe() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-4">
         <div>
           <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
             <Clock className="w-4 h-4" /> Today's Route
@@ -209,68 +209,6 @@ function ShelfVisionWireframe() {
         </div>
       </div>
 
-      {/* Mobile Bottom Tab Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 mx-auto" style={{ maxWidth: "375px" }}>
-        <div className="flex justify-around items-center">
-          <button
-            onClick={() => setMobileScreen("dashboard")}
-            className={`flex-1 py-3 flex flex-col items-center gap-1 ${
-              mobileScreen === "dashboard"
-                ? "text-blue-600 border-t-2 border-blue-600"
-                : "text-gray-400"
-            }`}
-          >
-            <Home className="w-5 h-5" />
-            <span className="text-xs">Home</span>
-          </button>
-          <button
-            onClick={() => setMobileScreen("stores")}
-            className={`flex-1 py-3 flex flex-col items-center gap-1 ${
-              mobileScreen === "stores"
-                ? "text-blue-600 border-t-2 border-blue-600"
-                : "text-gray-400"
-            }`}
-          >
-            <Store className="w-5 h-5" />
-            <span className="text-xs">Stores</span>
-          </button>
-          <button
-            onClick={() => setMobileScreen("capture")}
-            className={`flex-1 py-3 flex flex-col items-center gap-1 ${
-              mobileScreen === "capture"
-                ? "text-blue-600 border-t-2 border-blue-600"
-                : "text-gray-400"
-            }`}
-          >
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center -mt-2">
-              <Camera className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xs">Capture</span>
-          </button>
-          <button
-            onClick={() => setMobileScreen("analytics")}
-            className={`flex-1 py-3 flex flex-col items-center gap-1 ${
-              mobileScreen === "analytics"
-                ? "text-blue-600 border-t-2 border-blue-600"
-                : "text-gray-400"
-            }`}
-          >
-            <TrendingUp className="w-5 h-5" />
-            <span className="text-xs">Analytics</span>
-          </button>
-          <button
-            onClick={() => setMobileScreen("profile")}
-            className={`flex-1 py-3 flex flex-col items-center gap-1 ${
-              mobileScreen === "profile"
-                ? "text-blue-600 border-t-2 border-blue-600"
-                : "text-gray-400"
-            }`}
-          >
-            <Users className="w-5 h-5" />
-            <span className="text-xs">Profile</span>
-          </button>
-        </div>
-      </div>
     </div>
   );
 
@@ -298,7 +236,7 @@ function ShelfVisionWireframe() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 pb-24">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 pb-4">
         {storeData.map((store) => (
           <div
             key={store.id}
@@ -355,7 +293,7 @@ function ShelfVisionWireframe() {
         </p>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-4">
         <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-semibold text-gray-900">Visit Timer</span>
@@ -413,7 +351,7 @@ function ShelfVisionWireframe() {
   const MobileCaptureScreen = () => (
     <div className="h-full flex flex-col bg-gray-900 relative">
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
-        <button onClick={() => setMobileScreen("dashboard")} className="text-white">
+        <button onClick={() => setMobileScreen(selectedStore ? "storeDetail" : "dashboard")} className="text-white">
           <ChevronLeft className="w-5 h-5" />
         </button>
         <h2 className="text-white font-semibold text-sm">Shelf Capture</h2>
@@ -433,20 +371,26 @@ function ShelfVisionWireframe() {
         <div className="absolute top-32 left-6 text-gray-500 text-xs">Quality: Good</div>
       </div>
 
-      <div className="bg-gray-800 border-t border-gray-700 p-6 flex justify-between items-center">
-        <button className="text-gray-300 hover:text-white">
-          <Image className="w-6 h-6" />
-        </button>
+      <div className="bg-gray-800 border-t border-gray-700 p-4 space-y-3">
+        <div className="flex justify-between items-center">
+          <button onClick={() => setMobileScreen("upload")} className="text-gray-300 hover:text-white">
+            <Image className="w-6 h-6" />
+          </button>
+          <button
+            onClick={() => setCapturedCount((c) => Math.min(c + 1, 6))}
+            className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition shadow-lg"
+          >
+            <div className="w-14 h-14 bg-blue-500 rounded-full" />
+          </button>
+          <button className="text-gray-300 hover:text-white">
+            <Zap className="w-6 h-6" />
+          </button>
+        </div>
         <button
-          onClick={() => {
-            setCapturedCount((c) => Math.min(c + 1, 6));
-          }}
-          className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition shadow-lg"
+          onClick={() => setMobileScreen("analysis")}
+          className="w-full py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700 transition"
         >
-          <div className="w-14 h-14 bg-blue-500 rounded-full" />
-        </button>
-        <button className="text-gray-300 hover:text-white">
-          <Zap className="w-6 h-6" />
+          Done — View Analysis
         </button>
       </div>
     </div>
@@ -465,7 +409,7 @@ function ShelfVisionWireframe() {
         <h2 className="text-lg font-bold text-gray-900">Shelf Stitching</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-4">
         <div>
           <h3 className="text-sm font-semibold text-gray-900 mb-3">Images to Stitch</h3>
           <div className="grid grid-cols-4 gap-2">
@@ -517,6 +461,13 @@ function ShelfVisionWireframe() {
   const MobileUploadScreen = () => (
     <div className="h-full flex flex-col bg-gray-50">
       <div className="bg-white border-b border-gray-200 p-4 sticky top-0 z-10">
+        <button
+          onClick={() => setMobileScreen("dashboard")}
+          className="flex items-center gap-2 text-blue-600 mb-2"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span className="text-sm font-semibold">Back</span>
+        </button>
         <h2 className="text-lg font-bold text-gray-900 mb-3">Gallery</h2>
         <div className="flex gap-2">
           <button className="text-xs px-3 py-1 rounded-full border border-gray-300 font-semibold hover:bg-gray-100">
@@ -531,7 +482,7 @@ function ShelfVisionWireframe() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 pb-20">
+      <div className="flex-1 overflow-y-auto p-4 pb-4">
         <div className="grid grid-cols-2 gap-3 mb-4">
           {[1, 2, 3, 4, 5, 6].map((img) => (
             <div key={img} className="relative group">
@@ -569,10 +520,17 @@ function ShelfVisionWireframe() {
   const MobileAnalysisScreen = () => (
     <div className="h-full flex flex-col bg-gray-50">
       <div className="bg-white border-b border-gray-200 p-4 sticky top-0 z-10">
+        <button
+          onClick={() => setMobileScreen("analytics")}
+          className="flex items-center gap-2 text-blue-600 mb-2"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span className="text-sm font-semibold">Back</span>
+        </button>
         <h2 className="text-lg font-bold text-gray-900">Analysis Results</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-4">
         <div className="aspect-video bg-gradient-to-br from-gray-300 to-gray-400 rounded-lg" />
 
         <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
@@ -654,7 +612,7 @@ function ShelfVisionWireframe() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-4">
         <div className="grid grid-cols-2 gap-3">
           <div className="bg-white rounded-lg p-4 border border-gray-200">
             <p className="text-xs text-gray-600 mb-1">Visits</p>
@@ -705,7 +663,10 @@ function ShelfVisionWireframe() {
           </div>
         </div>
 
-        <button className="w-full py-3 bg-white border border-gray-300 text-gray-900 font-semibold rounded-lg hover:bg-gray-50 transition">
+        <button
+          onClick={() => setMobileScreen("analysis")}
+          className="w-full py-3 bg-white border border-gray-300 text-gray-900 font-semibold rounded-lg hover:bg-gray-50 transition"
+        >
           View Full Report
         </button>
       </div>
@@ -718,7 +679,7 @@ function ShelfVisionWireframe() {
         <h2 className="text-lg font-bold text-gray-900">Profile</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-4">
         <div className="bg-white rounded-lg p-6 border border-gray-200 text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
             <span className="text-2xl font-bold text-white">AJ</span>
@@ -772,6 +733,48 @@ function ShelfVisionWireframe() {
         <button className="w-full py-3 bg-red-50 border border-red-200 text-red-600 font-semibold rounded-lg hover:bg-red-100 transition flex items-center justify-center gap-2">
           <LogOut className="w-4 h-4" /> Logout
         </button>
+      </div>
+    </div>
+  );
+
+  // Screens that show bottom tab bar (main tabs)
+  const mainTabScreens = ["dashboard", "stores", "analytics", "profile"];
+  // Screens that show bottom tab bar AND a back-to-context button (sub-screens accessible from tabs)
+  const subScreensWithTabs = ["upload", "analysis", "storeDetail", "stitching"];
+  const showBottomNav = mainTabScreens.includes(mobileScreen) || subScreensWithTabs.includes(mobileScreen);
+  // Screens that are full overlays (no bottom nav, own back button): login, capture, storeDetail, stitching
+
+  const MobileBottomNav = () => (
+    <div className="bg-white border-t border-gray-200 flex-shrink-0">
+      <div className="flex justify-around items-center">
+        {[
+          { id: "dashboard", icon: Home, label: "Home" },
+          { id: "stores", icon: Store, label: "Stores" },
+          { id: "capture", icon: Camera, label: "Capture", isCenter: true },
+          { id: "analytics", icon: TrendingUp, label: "Analytics" },
+          { id: "profile", icon: Users, label: "Profile" },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setMobileScreen(tab.id)}
+            className={`flex-1 py-3 flex flex-col items-center gap-1 ${
+              mobileScreen === tab.id || (tab.id === "analytics" && mobileScreen === "analysis")
+                ? "text-blue-600"
+                : "text-gray-400"
+            }`}
+          >
+            {tab.isCenter ? (
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center -mt-4 shadow-lg ${
+                mobileScreen === "capture" ? "bg-blue-700" : "bg-blue-600"
+              }`}>
+                <tab.icon className="w-5 h-5 text-white" />
+              </div>
+            ) : (
+              <tab.icon className="w-5 h-5" />
+            )}
+            <span className="text-xs font-medium">{tab.label}</span>
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -1449,17 +1452,22 @@ function ShelfVisionWireframe() {
             </div>
 
             {/* Phone Screen */}
-            <div className="bg-white h-full overflow-hidden flex flex-col" style={{ height: "calc(100% - 56px)" }}>
-              {mobileScreen === "login" && <MobileLoginScreen />}
-              {mobileScreen === "dashboard" && <MobileDashboardScreen />}
-              {mobileScreen === "stores" && <MobileStoresScreen />}
-              {mobileScreen === "storeDetail" && <MobileStoreDetailScreen />}
-              {mobileScreen === "capture" && <MobileCaptureScreen />}
-              {mobileScreen === "stitching" && <MobileStitchingScreen />}
-              {mobileScreen === "upload" && <MobileUploadScreen />}
-              {mobileScreen === "analysis" && <MobileAnalysisScreen />}
-              {mobileScreen === "analytics" && <MobileAnalyticsScreen />}
-              {mobileScreen === "profile" && <MobileProfileScreen />}
+            <div className="bg-white overflow-hidden flex flex-col" style={{ height: "calc(100% - 40px)" }}>
+              {/* Screen content area */}
+              <div className="flex-1 overflow-hidden">
+                {mobileScreen === "login" && <MobileLoginScreen />}
+                {mobileScreen === "dashboard" && <MobileDashboardScreen />}
+                {mobileScreen === "stores" && <MobileStoresScreen />}
+                {mobileScreen === "storeDetail" && <MobileStoreDetailScreen />}
+                {mobileScreen === "capture" && <MobileCaptureScreen />}
+                {mobileScreen === "stitching" && <MobileStitchingScreen />}
+                {mobileScreen === "upload" && <MobileUploadScreen />}
+                {mobileScreen === "analysis" && <MobileAnalysisScreen />}
+                {mobileScreen === "analytics" && <MobileAnalyticsScreen />}
+                {mobileScreen === "profile" && <MobileProfileScreen />}
+              </div>
+              {/* Persistent bottom nav */}
+              {showBottomNav && <MobileBottomNav />}
             </div>
           </div>
         </div>
